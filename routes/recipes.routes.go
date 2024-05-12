@@ -10,12 +10,14 @@ import (
 )
 
 func GetRecipesHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var recipes []models.Recipes
 	db.DB.Find(&recipes)
 	json.NewEncoder(w).Encode(recipes)
 }
 
 func CreateRecipeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var recipes models.Recipes
 	json.NewDecoder(r.Body).Decode(&recipes)
 
@@ -32,6 +34,7 @@ func CreateRecipeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetRecipeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var recipes models.Recipes
 	params := mux.Vars(r)
 
@@ -48,6 +51,7 @@ func GetRecipeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteRecipesHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var recipes models.Recipes
 	params := mux.Vars(r)
 

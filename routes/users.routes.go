@@ -10,12 +10,16 @@ import (
 )
 
 func GetUsersHandle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var users []models.User
+
 	db.DB.Find(&users)
 	json.NewEncoder(w).Encode(&users)
+
 }
 
 func GetUserHandle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	params := mux.Vars(r)
 	var user models.User
 	db.DB.First(&user, params["id"])
@@ -32,6 +36,7 @@ func GetUserHandle(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostUserHandle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var user models.User
 	json.NewDecoder(r.Body).Decode(&user)
 
@@ -47,6 +52,7 @@ func PostUserHandle(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUserHandle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	params := mux.Vars(r)
 	var user models.User
 	db.DB.First(&user, params["id"])

@@ -17,6 +17,7 @@ func main() {
 
 	r := mux.NewRouter()
 
+	r.Use(mux.CORSMethodMiddleware(r))
 	r.HandleFunc("/", routes.HomeHandle)
 
 	r.HandleFunc("/users", routes.GetUsersHandle).Methods("GET")
@@ -31,5 +32,5 @@ func main() {
 	r.HandleFunc("/recipes", routes.CreateRecipeHandler).Methods("POST")
 	r.HandleFunc("/recipes/{id}", routes.DeleteRecipesHandler).Methods("Delete")
 
-	http.ListenAndServe(":3000", r)
+	http.ListenAndServe(":3001", r)
 }
