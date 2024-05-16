@@ -22,7 +22,6 @@ func main() {
 
 	r.HandleFunc("/users", routes.GetUsersHandle).Methods("GET")
 	r.HandleFunc("/users/{id}", routes.GetUserHandle).Methods("GET")
-	r.HandleFunc("/usersC", routes.PostUserHandle).Methods("POST")
 	r.HandleFunc("/users/{id}", routes.DeleteUserHandle).Methods("DELETE")
 
 	// Recipes Routes
@@ -36,6 +35,7 @@ func main() {
 
 	r.HandleFunc("/login", routes.HomeLogin).Methods("GET")
 	r.HandleFunc("/login", routes.GetLogin).Methods("POST")
+	r.HandleFunc("/createUser", routes.PostUserHandle).Methods("POST")
 
 	http.ListenAndServe(":3001", r)
 }
