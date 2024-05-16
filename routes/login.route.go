@@ -36,5 +36,10 @@ func GetLogin(w http.ResponseWriter, r *http.Request) {
 	token := "your_generated_token"
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"token": token})
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"user":     token,
+		"token":    user.ID,
+		"Name":     user.FirstName,
+		"lastName": user.LastName,
+	})
 }
