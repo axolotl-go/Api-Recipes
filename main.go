@@ -22,7 +22,7 @@ func main() {
 
 	r.HandleFunc("/users", routes.GetUsersHandle).Methods("GET")
 	r.HandleFunc("/users/{id}", routes.GetUserHandle).Methods("GET")
-	r.HandleFunc("/users", routes.PostUserHandle).Methods("POST")
+	r.HandleFunc("/usersC", routes.PostUserHandle).Methods("POST")
 	r.HandleFunc("/users/{id}", routes.DeleteUserHandle).Methods("DELETE")
 
 	// Recipes Routes
@@ -31,6 +31,11 @@ func main() {
 	r.HandleFunc("/recipes/{id}", routes.GetRecipeHandler).Methods("GET")
 	r.HandleFunc("/recipes", routes.CreateRecipeHandler).Methods("POST")
 	r.HandleFunc("/recipes/{id}", routes.DeleteRecipesHandler).Methods("Delete")
+
+	// Login Routes
+
+	r.HandleFunc("/login", routes.HomeLogin).Methods("GET")
+	r.HandleFunc("/login", routes.GetLogin).Methods("POST")
 
 	http.ListenAndServe(":3001", r)
 }
