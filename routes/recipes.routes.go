@@ -10,6 +10,15 @@ import (
 )
 
 func GetRecipesHandler(w http.ResponseWriter, r *http.Request) {
+	// Manejar las solicitudes preflight
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var recipes []models.Recipes
 	db.DB.Find(&recipes)
@@ -17,7 +26,17 @@ func GetRecipesHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateRecipeHandler(w http.ResponseWriter, r *http.Request) {
+	// Manejar las solicitudes preflight
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	var recipes models.Recipes
 	json.NewDecoder(r.Body).Decode(&recipes)
 
@@ -34,7 +53,17 @@ func CreateRecipeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetRecipeHandler(w http.ResponseWriter, r *http.Request) {
+	// Manejar las solicitudes preflight
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	var recipes models.Recipes
 	params := mux.Vars(r)
 
@@ -51,7 +80,17 @@ func GetRecipeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteRecipesHandler(w http.ResponseWriter, r *http.Request) {
+	// Manejar las solicitudes preflight
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	var recipes models.Recipes
 	params := mux.Vars(r)
 

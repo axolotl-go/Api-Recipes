@@ -18,6 +18,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.Use(mux.CORSMethodMiddleware(r))
+
 	r.HandleFunc("/", routes.HomeHandle)
 
 	r.HandleFunc("/users", routes.GetUsersHandle).Methods("GET")
@@ -34,8 +35,8 @@ func main() {
 	// Login Routes
 
 	r.HandleFunc("/login", routes.HomeLogin).Methods("GET")
-	r.HandleFunc("/login", routes.GetLogin).Methods("POST")
-	r.HandleFunc("/createUser", routes.PostUserHandle).Methods("POST")
+	r.HandleFunc("/singIn", routes.GetLogin).Methods("POST", "OPTIONS")
+	r.HandleFunc("/singUp", routes.PostUserHandle).Methods("POST")
 
 	http.ListenAndServe(":3001", r)
 }

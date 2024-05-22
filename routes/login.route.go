@@ -15,7 +15,17 @@ func HomeLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetLogin(w http.ResponseWriter, r *http.Request) {
+	// Manejar las solicitudes preflight
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	var login models.Login
 	if err := json.NewDecoder(r.Body).Decode(&login); err != nil {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
@@ -37,14 +47,23 @@ func GetLogin(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"user":     token,
-		"token":    user.ID,
+		"user":     user,
+		"token":    token,
 		"Name":     user.FirstName,
 		"lastName": user.LastName,
 	})
 }
 
 func PostUserHandle(w http.ResponseWriter, r *http.Request) {
+	// Manejar las solicitudes preflight
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var user models.User
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
