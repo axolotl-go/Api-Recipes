@@ -43,14 +43,15 @@ func GetLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token := "your_generated_token"
+	token := "Token-Access"
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"user":     user,
+		"user":     user.ID,
 		"token":    token,
 		"Name":     user.FirstName,
 		"lastName": user.LastName,
+		"email":    user.Email,
 	})
 }
 
@@ -65,6 +66,7 @@ func PostUserHandle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	var user models.User
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
