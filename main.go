@@ -10,10 +10,8 @@ import (
 )
 
 func main() {
-	db.Dbconnection()
 
-	db.DB.AutoMigrate(models.Recipes{})
-	db.DB.AutoMigrate(models.User{})
+	db.DB.AutoMigrate(models.Recipes{}, models.User{})
 
 	r := mux.NewRouter()
 
@@ -38,5 +36,5 @@ func main() {
 	r.HandleFunc("/signIn", routes.GetLogin).Methods("POST", "OPTIONS")
 	r.HandleFunc("/signUp", routes.PostUserHandle).Methods("POST", "OPTIONS")
 
-	http.ListenAndServe(":3001", r)
+	http.ListenAndServe(":8080", r)
 }

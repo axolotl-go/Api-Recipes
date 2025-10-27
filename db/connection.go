@@ -2,21 +2,31 @@ package db
 
 import (
 	"log"
+	"os"
 
-	"gorm.io/driver/postgres"
+	"github.com/glebarez/sqlite"
+	"github.com/joho/godotenv"
 	"gorm.io/gorm"
 )
 
-var DSN = "use connection db"
 var DB *gorm.DB
 
-func Dbconnection() {
+func init() {
+
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file :", err)
+	}
+
+	dsn := os.Getenv("DB_DSN")
+	if dsn == "" {
+		log.Fatal("DB_DSN not set")
+	}
+
 	var error error
-	DB, error = gorm.Open(postgres.Open(DSN), &gorm.Config{})
+	DB, error = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 
 	if error != nil {
 		log.Fatal(error)
-	} else {
-		log.Println("DB connection established")
 	}
+	log.Println("DB connection established")
 }

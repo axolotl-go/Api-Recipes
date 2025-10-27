@@ -15,7 +15,6 @@ func GetUsersHandle(w http.ResponseWriter, r *http.Request) {
 
 	db.DB.Find(&users)
 	json.NewEncoder(w).Encode(&users)
-
 }
 
 func GetUserHandle(w http.ResponseWriter, r *http.Request) {
